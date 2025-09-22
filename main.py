@@ -7,8 +7,11 @@ def main():
     #   print(f"Usage : {os.path.basename(__file__)} -ip 0.0.0.0")
     #   sys.exit()
 
+    #Load config
     config = load_config()
     device_config = dict(config["Device"])
+
+    #Start server
     server = BacnetServer(device_config["device_name"], device_config["device_identifier"])
     server.start()
 
