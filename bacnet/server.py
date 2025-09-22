@@ -6,6 +6,7 @@ from bacpypes.local.device import LocalDeviceObject
 
 class BacnetServer:
     def __init__(self, device_name, device_id, vendor_id=9999, ip="0.0.0.0"):
+        self.ip = str(ip)
         self.device = LocalDeviceObject(
             objectIdentifier=int(device_id),
             objectName=device_name,
@@ -13,15 +14,14 @@ class BacnetServer:
             vendorIdentifier=int(vendor_id)
         )
 
-        self.app = BIPSimpleApplication(self.device, ip)
+        self.app = BIPSimpleApplication(self.device, self.ip)
 
-    @staticmethod
-    def start():
+    def start(self):
         def handle_stop(signum, frame):
             print("🛑 Stopping server...")
             stop()
 
         signal.signal(signal.SIGINT, handle_stop)
 
-        print("🚀 Launch server...")
+        print(f"🚀 Launch server on {self.ip}:47808...")
         run()
