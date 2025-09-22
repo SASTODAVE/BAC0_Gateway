@@ -5,7 +5,7 @@ from bacpypes.core import run, stop
 from bacpypes.local.device import LocalDeviceObject
 
 class BacnetServer:
-    def __init__(self, device_name, device_id, vendor_id=9999):
+    def __init__(self, device_name, device_id, vendor_id=9999, ip="0.0.0.0"):
         self.device = LocalDeviceObject(
             objectIdentifier=int(device_id),
             objectName=device_name,
@@ -13,7 +13,7 @@ class BacnetServer:
             vendorIdentifier=int(vendor_id)
         )
 
-        self.app = BIPSimpleApplication(self.device, "0.0.0.0")
+        self.app = BIPSimpleApplication(self.device, ip)
 
     @staticmethod
     def start():
