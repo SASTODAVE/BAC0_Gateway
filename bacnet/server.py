@@ -10,7 +10,17 @@ from .api_client import fetch_objects
 from .config_loader import load_config
 
 class BacnetServer:
+    """
+    Bacnet Server class.
+    """
     def __init__(self, device_name, device_id, vendor_id=9999, ip="0.0.0.0"):
+        """
+        Loads api configuration from YAML file, create objects, and add objects to updater class.
+        :param device_name: name of device
+        :param device_id: id of device
+        :param vendor_id: vendor id of device
+        :param ip: ip address of device
+        """
         self.ip = str(ip)
         self.device = LocalDeviceObject(
             objectIdentifier=int(device_id),
@@ -39,6 +49,9 @@ class BacnetServer:
             self.updaters.append(updater)
 
     def start(self):
+        """
+        Starts the Bacnet Server.
+        """
         def handle_stop(signum, frame):
             print("🛑 Stopping server...")
             for upd in self.updaters:

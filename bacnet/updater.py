@@ -2,7 +2,16 @@ import time
 import threading
 
 class ObjectUpdater:
+    """
+    Object updater class
+    """
     def __init__(self, bacnet_objects, interval_readings, update_interval=2):
+        """
+        Update bacnet objects with interval
+        :param bacnet_objects:
+        :param interval_readings:
+        :param update_interval:
+        """
         self.thread = None
         self.objects = bacnet_objects
         self.readings = interval_readings

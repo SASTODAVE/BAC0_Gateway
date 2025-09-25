@@ -1,6 +1,11 @@
 from bacpypes.object import AnalogValueObject, BinaryValueObject, MultiStateValueObject
 
 def create_object(object_type):
+    """
+    Creates an object from an object type.
+    :param object_type: type of the object
+    :return: bacnet object
+    """
     if object_type == "analog":
         return AnalogValueObject(
             objectIdentifier=("analogValue", 1),
@@ -28,6 +33,11 @@ def create_object(object_type):
         raise ValueError(f"Unknown type : {object_type}")
 
 def create_objects_from_json(json_data):
+    """
+    Creates objects from JSON data.
+    :param json_data:
+    :return: list of bacnet objects
+    """
     objects = []
     meter = json_data.get("meter_reading")
     if not meter:
