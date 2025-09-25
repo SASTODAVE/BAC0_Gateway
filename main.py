@@ -1,7 +1,5 @@
 from bacnet import BacnetServer, load_config
 from utils.helpers import check_ip
-from bacnet.api_client import fetch_objects
-from bacnet.objects import create_objects_from_json
 
 def main():
     #Parser for ip
@@ -14,8 +12,6 @@ def main():
     config = load_config()
     device_cfg = config.get("device", {})
 
-    data = fetch_objects()
-    create_objects_from_json(data)
     check_ip(device_cfg["ip"])
 
     #Start server
