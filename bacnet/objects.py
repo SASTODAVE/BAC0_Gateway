@@ -26,3 +26,33 @@ def create_object(object_type):
 
     else:
         raise ValueError(f"Unknown type : {object_type}")
+
+def create_objects_from_json(json_data):
+    objects = []
+    meter = json_data.get("meter_reading")
+    if not meter:
+        return []
+    usage_point = meter.get("usage_point_id", "unknown")
+    reading_type = meter.get("reading_type", {})
+    measurement_kind = reading_type.get("measurement_kind", "analog")
+    unit = reading_type.get("unit", "unitless")
+
+    object_name = f"{measurement_kind.capitalize()}_{usage_point}"
+
+    interval_reading = meter.get("interval_reading", [])
+    initial_value = 0.0
+    if interval_reading:
+        initial_value = float(interval_reading[0].get("value", 0))
+
+    obj = AnalogValueObject(
+        objectIdentifier=("analogValue", 1),
+        objectName=object_name,
+        presentValue=initial_value,
+        statusFlags=[0, 0, 0, 0],
+        units=unit,
+        covIncrement=1.0,
+    )
+
+    objects.append(obj)
+
+    return objects
