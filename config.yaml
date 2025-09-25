@@ -1,0 +1,10 @@
+device:
+  name: "Xx"
+  identifier: 10
+  vendor_id: 9999
+  ip: "0.0.0.0"
+
+apis:
+  - name: "AP1"
+    source: "file" # or url
+    path: "lib/consommation_30minutes.json"
